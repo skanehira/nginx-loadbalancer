@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:1.19
+    container_name: nginx
+    ports:
+      - 80:80
+    volumes:
+      - type: bind
+        source: ./nginx.conf
+        target: /etc/nginx/conf.d/default.conf
+    depends_on:
+      - api1
+      - api2
+  api1:
+    build:
+      context: .
+    container_name: api1
+    ports:
+      - 81:80
+    environment:
+      API_NAME: app1
+  api2:
+    build:
+      context: .
+    container_name: api2
+    ports:
+      - 82:80
+    environment:
+      API_NAME: app2
