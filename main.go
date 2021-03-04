@@ -19,6 +19,11 @@ func main() {
 		}
 		fmt.Fprintln(w, string(b))
 	})
+
+	http.HandleFunc("/hello", func(w http.ResponseWriter, r *http.Request) {
+		apiname := os.Getenv("API_NAME")
+		fmt.Fprintln(w, apiname+" hello")
+	})
 	log.Println("start http server :80")
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
